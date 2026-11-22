@@ -18,10 +18,51 @@
 .request-entry small{display:block;color:var(--muted);margin-top:4px}
 @media(max-width:560px){.control-summary{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app{grid-template-columns:1fr}.side{padding:12px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.side p{display:none}main{padding-top:20px}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.grid{grid-template-columns:1fr}.card{padding:16px}.hero{padding:21px}.meta{grid-template-columns:1fr}}
+
+.privacy-pulse{margin-top:16px}
+.privacy-pulse-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.schedule-input{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;font:inherit;font-size:12px;color:var(--ink)}
+.schedule-source-list{display:grid;gap:9px;margin-top:14px}
+.schedule-source{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.schedule-source:first-child{border-top:0}
+.schedule-source label{display:flex;align-items:flex-start;gap:9px;font-size:12px;min-width:0}
+.schedule-source input{margin-top:2px;accent-color:var(--blue)}
+.schedule-source small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.45}
+.schedule-preview{display:grid;gap:8px;margin-top:12px}
+.schedule-preview-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;background:#f7f8fb;border-radius:9px;padding:10px;font-size:12px}
+.schedule-preview-item small{display:block;color:var(--muted);margin-top:3px}
+.schedule-result{border:1px solid var(--line);border-radius:11px;padding:14px;margin-top:10px}
+.schedule-result h3{margin-bottom:6px}
+.schedule-result p{font-size:12px;color:var(--muted);line-height:1.55;margin:4px 0}
+.schedule-result ul{padding-left:18px;margin:8px 0;font-size:12px;line-height:1.7}
 </style></head><body>
-<div class="app"><aside class="side"><div class="brand"><b>✦</b>Personal AI</div><nav class="nav"><button class="active" data-page="dashboard">⌂ Dashboard</button><button data-page="consent">✓ Informed Consent</button><button data-page="permissions">◈ Permissions</button><button data-page="activity">◷ Data Usage</button><button data-page="privacy">♧ Privacy Control</button></nav><p><b>Prototype mode</b><br>Fictional data only. No real calendar, tasks, location or messages are connected. Changes are simulated in this browser session.</p></aside>
+<div class="app"><aside class="side"><div class="brand"><b>✦</b>Personal AI</div><nav class="nav"><button class="active" data-page="dashboard">⌂ Dashboard</button><button data-page="scheduling">▣ Scheduling</button><button data-page="consent">✓ Informed Consent</button><button data-page="permissions">◈ Permissions</button><button data-page="activity">◷ Data Usage</button><button data-page="privacy">♧ Privacy Control</button></nav><p><b>Prototype mode</b><br>Fictional data only. No real calendar, tasks, location or messages are connected. Changes are simulated in this browser session.</p></aside>
 <main><div class="top">Personal AI <span style="padding:0 7px">/</span><span id="crumb">Dashboard</span></div>
-<section class="page active" id="dashboard"><div class="card hero"><div class="ico">✦</div><p class="eyebrow">Your personal assistant</p><h1>Your data. Your decision. Your control.</h1><p class="sub">Meet Aiko, your fictional AI assistant. Review what it can access, set clear boundaries, and change your choices whenever you want.</p><div class="btns"><button class="btn primary" data-go="permissions">Manage permissions</button><button class="btn" data-go="privacy">Privacy control center</button></div></div><div class="summary" id="dash-metrics"></div><div class="grid"><article class="card"><h2>Permission overview</h2><p class="muted">Each data category has its own access scope, purpose and duration.</p><div id="dash-access"></div><button class="btn" data-go="permissions">Review all permissions →</button></article><article class="card"><h2>Recent data activity</h2><p class="muted">Fictional record of data activity in this prototype.</p><div id="dash-activity"></div><button class="btn" data-go="activity">View activity log →</button></article></div></section>
+<section class="page active" id="dashboard">
+<div class="card hero"><div class="ico">✦</div><p class="eyebrow">Your personal assistant</p><h1>Your data. Your decision. Your control.</h1><p class="sub">Aiko plans around the information you choose to share. Your privacy choices remain visible while you use the assistant, not just in settings.</p><div class="btns"><button class="btn primary" data-go="scheduling">Plan my day</button><button class="btn" data-go="privacy">Open Privacy Control Center</button></div></div>
+<div class="summary" id="dash-metrics"></div>
+<div class="card privacy-pulse"><div class="privacy-pulse-head"><div><p class="eyebrow">Privacy at a glance</p><h2>Your current data-sharing status</h2><p class="muted">These states affect which information Aiko can use in Scheduling.</p></div><span class="pill">Live prototype status</span></div><div id="dash-access"></div><div class="btns"><button class="btn small" data-go="permissions">Review permissions</button><button class="btn small" data-go="activity">View data usage</button></div></div>
+<div class="grid"><article class="card"><h2>Scheduling with your choices</h2><p class="muted">Aiko will use only the active data categories you select for each planning request. You can review the exact sources before generating a plan.</p><div id="dash-schedule-status" class="schedule-source-list"></div><button class="btn primary" data-go="scheduling">Open Scheduling →</button></article><article class="card"><h2>Recent privacy activity</h2><p class="muted">See recent permission changes, access events and deletion requests.</p><div id="dash-activity"></div><button class="btn" data-go="activity">View full data usage history →</button></article></div>
+<div class="notice">Privacy reminder: permission status controls simulated access. No real calendar, task, location or message data is connected to this prototype.</div>
+</section>
+<section class="page" id="scheduling">
+<p class="eyebrow">Planning · Privacy-aware scheduling</p><h1>Plan with only the data you choose.</h1>
+<p class="sub">Before creating a plan, review which information Aiko may use. Inactive, paused, expired or revoked categories are not available for scheduling.</p>
+<div class="info"><b>Privacy-first planning:</b> You choose the active data sources for each request. Aiko will not use a category simply because permission exists; it must also be selected here.</div>
+<div class="grid">
+<article class="card"><h2>What would you like to plan?</h2>
+<div class="field"><label for="schedule-date">Planning date</label><input id="schedule-date" type="date" class="schedule-input"></div>
+<div class="field"><label for="schedule-focus">Main focus</label><input id="schedule-focus" type="text" class="schedule-input" placeholder="e.g. Prepare project presentation"></div>
+<div class="field"><label for="schedule-duration">Time needed</label><select id="schedule-duration" class="schedule-input"><option value="30">30 minutes</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></div>
+<div class="field"><label for="schedule-priority">Priority</label><select id="schedule-priority" class="schedule-input"><option>Normal</option><option>High</option><option>Flexible</option></select></div>
+</article>
+<article class="card"><h2>Choose data sources for this plan</h2><p class="muted">Only active permissions can be selected. Unselected categories will not be used for this request.</p>
+<div id="schedule-sources"></div><div class="notice" id="schedule-source-note">Your selection is request-specific. You can change it before every plan.</div>
+</article></div>
+<div class="card" style="margin-top:16px"><div class="privacy-pulse-head"><div><h2>Privacy preview</h2><p class="muted">Check the exact categories, purposes and access scopes before you continue.</p></div><span class="pill">Before access</span></div><div id="schedule-preview" class="schedule-preview"></div><div class="btns"><button class="btn primary" id="generate-schedule">Generate my plan</button><button class="btn" id="clear-schedule">Clear selection</button></div><p class="status" id="schedule-status" aria-live="polite"></p></div>
+<div class="card" style="margin-top:16px"><h2>Your planning result</h2><p class="muted">The suggestions below are illustrative. They do not inspect a real calendar or create real events.</p><div id="schedule-output"><div class="empty">Your plan will appear here after you choose data sources and generate a schedule.</div></div></div>
+<div class="notice">Every selected source used to generate a plan creates a simulated access record in Data Usage. This makes the privacy consequences of scheduling visible and reviewable.</div>
+</section>
 <section class="page" id="consent"><p class="eyebrow">00 · Before you share</p><h1>Understand what you are agreeing to.</h1><p class="sub">Review the information below before granting Aiko access. Each data category is optional. You can choose only what is needed and change your decision later.</p>
 <div class="info"><b>Important:</b> This is a prototype. It does not connect to your accounts, collect real personal data, store information on a server or share data with third parties. The retention and third-party terms below are proposed policies for a future product, not implemented guarantees.</div>
 <div class="card" style="margin-top:18px"><h2>1. What data would be used, and why?</h2><p class="muted">Select only the categories you want to make available. The examples describe the proposed minimum data access.</p>
@@ -64,7 +105,7 @@ const D={
 };
 const state={};Object.keys(D).forEach(k=>state[k]={status:"Not granted",scope:D[k].default,purposes:[],duration:"7",grantedAt:null,expiresAt:null,lastAccess:null});
 let logs=[{title:"Prototype session started",detail:"No real personal data is connected.",time:new Date(),type:"System"}],accessLogs=[],deleteRequests=[],filter="all";
-const day=86400000,labels={dashboard:"Dashboard",consent:"Informed Consent",permissions:"Permissions",activity:"Data Usage",privacy:"Privacy Control"};
+const day=86400000,labels={dashboard:"Dashboard",scheduling:"Scheduling",consent:"Informed Consent",permissions:"Permissions",activity:"Data Usage",privacy:"Privacy Control"};
 function status(k){let p=state[k];if(p.status==="Active"&&p.expiresAt&&Date.now()>p.expiresAt){p.status="Expired";addLog("Permission expired",D[k].name+" access expired.","System");}return p.status}
 function addLog(title,detail,type){logs.unshift({title,detail,type,time:new Date()})}
 function addAccessEvent(k){
@@ -89,7 +130,13 @@ function metrics(id){let ss=Object.keys(D).map(status);document.getElementById(i
 function date(ts){return ts?new Date(ts).toLocaleDateString():"—"}
 function go(id){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===id));document.getElementById("crumb").textContent=labels[id];window.scrollTo(0,0);render()}
 document.querySelectorAll("[data-page]").forEach(x=>x.onclick=()=>go(x.dataset.page));document.querySelectorAll("[data-go]").forEach(x=>x.onclick=()=>go(x.dataset.go));
-function renderDashboard(){metrics("dash-metrics");document.getElementById("dash-access").innerHTML=Object.keys(D).map(k=>`<div class="row"><div class="grow"><strong>${D[k].name}</strong><small>${scopeName(k)}</small></div>${badge(status(k))}</div>`).join("");document.getElementById("dash-activity").innerHTML=logs.slice(0,3).map(x=>`<div class="activity"><strong>${x.title}</strong><small>${x.time.toLocaleString()}</small></div>`).join("")}
+function renderDashboard(){
+  metrics("dash-metrics");
+  document.getElementById("dash-access").innerHTML=Object.keys(D).map(k=>`<div class="row"><div class="grow"><strong>${D[k].name}</strong><small>${scopeName(k)} · ${state[k].purposes.join(", ")||"No purpose selected"}</small></div>${badge(status(k))}</div>`).join("");
+  document.getElementById("dash-schedule-status").innerHTML=Object.keys(D).map(k=>`<div class="schedule-source"><div><b style="font-size:12px">${D[k].name}</b><small>${status(k)==="Active"?"Available for selection in Scheduling":"Not available to Scheduling"}</small></div>${badge(status(k))}</div>`).join("");
+  const recent=[...logs].sort((a,b)=>b.time-a.time).slice(0,4);
+  document.getElementById("dash-activity").innerHTML=recent.length?recent.map(x=>`<div class="activity"><strong>${x.title}</strong><small>${x.time.toLocaleString()} · ${x.type}</small></div>`).join(""):`<div class="empty">No recent activity.</div>`;
+}
 function renderPermissions(){metrics("perm-metrics");let keys=Object.keys(D).filter(k=>filter==="all"||status(k)===filter),el=document.getElementById("permission-list");el.innerHTML=keys.length?keys.map(k=>{let d=D[k],p=state[k],s=status(k),opts=d.scopes.map(([v,t])=>`<option value="${v}" ${p.scope===v?"selected":""}>${t}</option>`).join(""),checks=d.purposes.map(t=>`<label class="check"><input type="checkbox" data-purpose="${k}" value="${t}" ${p.purposes.includes(t)?"checked":""}>${t}</label>`).join("");return `<article class="card"><div class="permission-head"><div class="ico">${d.icon}</div><div class="grow"><h2>${d.name}</h2><p class="muted">${d.desc}</p></div>${badge(s)}</div><p class="muted"><b>Potential value:</b> ${d.value}</p><div class="meta"><div><label>ACCESS SCOPE</label><strong>${scopeName(k)}</strong></div><div><label>PERMITTED PURPOSE</label><strong>${p.purposes.join(", ")||"Not set"}</strong></div><div><label>VALID UNTIL</label><strong>${p.expiresAt?date(p.expiresAt):"Not set"}</strong></div><div><label>LAST ACCESS</label><strong>${p.lastAccess?new Date(p.lastAccess).toLocaleString():"No activity"}</strong></div></div><div class="btns"><button class="btn primary small" data-config="${k}">Configure</button>${s==="Active"?`<button class="btn small" data-pause="${k}">Pause</button>`:""}${s==="Paused"?`<button class="btn small" data-resume="${k}">Resume</button>`:""}${["Active","Paused"].includes(s)?`<button class="btn danger small" data-revoke="${k}">Revoke</button>`:""}</div><div class="detail" id="detail-${k}"><h3>Configure ${d.name} access</h3><p class="muted">Choose the narrowest access that supports the feature you want.</p><div class="field"><label for="scope-${k}">What can Aiko access?</label><select id="scope-${k}">${opts}</select></div><div class="field"><span class="field-title">What may Aiko use it for?</span><div class="checks">${checks}</div></div><div class="field"><label for="duration-${k}">How long should access last?</label><select id="duration-${k}"><option value="1" ${p.duration==="1"?"selected":""}>1 day</option><option value="7" ${p.duration==="7"?"selected":""}>7 days</option><option value="30" ${p.duration==="30"?"selected":""}>30 days</option><option value="90" ${p.duration==="90"?"selected":""}>90 days</option><option value="0" ${p.duration==="0"?"selected":""}>Until I revoke it</option></select></div><div class="btns"><button class="btn primary small" data-save="${k}">Save and grant access</button><button class="btn small" data-cancel="${k}">Cancel</button></div><p class="muted">Saving activates this simulated permission. You can change or revoke it later.</p></div></article>`}).join(""):`<div class="empty">No permissions match this filter.</div>`;
 el.querySelectorAll("[data-config]").forEach(b=>b.onclick=()=>document.getElementById("detail-"+b.dataset.config).classList.toggle("open"));el.querySelectorAll("[data-cancel]").forEach(b=>b.onclick=()=>document.getElementById("detail-"+b.dataset.cancel).classList.remove("open"));el.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>save(b.dataset.save));el.querySelectorAll("[data-pause]").forEach(b=>b.onclick=()=>setStatus(b.dataset.pause,"Paused"));el.querySelectorAll("[data-resume]").forEach(b=>b.onclick=()=>setStatus(b.dataset.resume,"Active"));el.querySelectorAll("[data-revoke]").forEach(b=>b.onclick=()=>setStatus(b.dataset.revoke,"Revoked"))}
 function save(k){let p=state[k],d=D[k],purposes=[...document.querySelectorAll(`[data-purpose="${k}"]:checked`)].map(x=>x.value);if(!purposes.length){document.getElementById("perm-status").textContent="Choose at least one permitted purpose.";return}p.scope=document.getElementById("scope-"+k).value;p.purposes=purposes;p.duration=document.getElementById("duration-"+k).value;p.status="Active";p.grantedAt=Date.now();p.expiresAt=p.duration==="0"?null:Date.now()+Number(p.duration)*day;addLog(d.name+" access granted",`Scope: ${scopeName(k)}. Purpose: ${purposes.join(", ")}. Duration: ${p.duration==="0"?"Until revoked":p.duration+" days"}.`,"Permission");document.getElementById("perm-status").textContent=d.name+" permission saved. Access is active in this prototype.";render()}
@@ -120,7 +167,55 @@ function renderPrivacy(){
   document.querySelectorAll("[data-revoke-center]").forEach(b=>b.onclick=()=>setStatus(b.dataset.revokeCenter,"Revoked"));
   document.getElementById("delete-history").innerHTML=deleteRequests.length?deleteRequests.map(r=>`<div class="request-entry"><b>${r.category==="all"?"All data categories":D[r.category].name}</b> · <span class="pill">Simulated request recorded</span><small>${r.time.toLocaleString()} · No real data was deleted</small></div>`).join(""):`<div class="empty">No deletion requests yet.</div>`;
 }
-function render(){renderDashboard();renderPermissions();renderActivity();renderPrivacy()}
+
+function localDateValue(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function selectedScheduleSources(){return [...document.querySelectorAll(".schedule-source-choice:checked")].map(x=>x.value)}
+function renderScheduling(){
+  const host=document.getElementById("schedule-sources");
+  if(!host)return;
+  host.innerHTML=Object.keys(D).map(k=>{
+    const active=status(k)==="Active";
+    return `<div class="schedule-source"><label><input class="schedule-source-choice" type="checkbox" value="${k}" ${active?"":"disabled"}><span><b>${D[k].name}</b><small>${active?`${scopeName(k)} · ${state[k].purposes.join(", ")||"Purpose not specified"}`:`Unavailable — permission is ${status(k).toLowerCase()}`}</small></span></label>${badge(status(k))}</div>`;
+  }).join("");
+  host.querySelectorAll(".schedule-source-choice").forEach(x=>x.onchange=renderSchedulePreview);
+  const dateInput=document.getElementById("schedule-date");
+  if(dateInput&&!dateInput.value){dateInput.value=localDateValue();dateInput.min=localDateValue()}
+  renderSchedulePreview();
+}
+function renderSchedulePreview(){
+  const selected=selectedScheduleSources(),host=document.getElementById("schedule-preview");
+  if(!host)return;
+  host.innerHTML=selected.length?selected.map(k=>`<div class="schedule-preview-item"><div><b>${D[k].name}</b><small>Purpose: ${(state[k].purposes[0]||"Approved purpose")} · Scope: ${scopeName(k)}</small></div>${badge("Active")}</div>`).join(""):`<div class="empty">No data selected. Choose one or more active categories, or grant permission first. Aiko will not access any data until you generate a plan.</div>`;
+}
+function generateSchedule(){
+  const selected=selectedScheduleSources(),statusEl=document.getElementById("schedule-status"),output=document.getElementById("schedule-output");
+  const focus=document.getElementById("schedule-focus").value.trim()||"Your priority task";
+  const dateVal=document.getElementById("schedule-date").value||localDateValue();
+  const duration=document.getElementById("schedule-duration").value;
+  const priority=document.getElementById("schedule-priority").value;
+  if(!selected.length){statusEl.textContent="Choose at least one active data source. No data has been accessed.";output.innerHTML='<div class="empty">No plan generated. Select an active source to continue.</div>';return}
+  const unavailable=selected.filter(k=>status(k)!=="Active");
+  if(unavailable.length){statusEl.textContent="One or more selected permissions are no longer active. Refresh your selection.";renderScheduling();return}
+  const used=selected.filter(k=>status(k)==="Active");
+  used.forEach(k=>{
+    const now=new Date(),purpose=state[k].purposes[0]||"Approved scheduling purpose";
+    accessLogs.unshift({category:k,time:now,purpose,scope:scopeName(k),event:"Used for scheduling",result:"Allowed",detail:"Selected by user for this planning request"});
+    state[k].lastAccess=now.getTime();
+    addLog(D[k].name+" used for scheduling",`User selected this source for "${focus}". Purpose: ${purpose}. Scope: ${scopeName(k)}.`,"Scheduling");
+  });
+  const items=[];
+  if(used.includes("calendar"))items.push("Check the permitted calendar availability and avoid known conflicts.");
+  else items.push("Calendar availability was not accessed; confirm your free time before adding this block.");
+  if(used.includes("tasks"))items.push("Use the permitted task information to prioritise this focus block.");
+  if(used.includes("location"))items.push("Consider travel time using the permitted location scope, if relevant.");
+  if(used.includes("messages"))items.push("Use only the selected message information for scheduling context.");
+  const usedNames=used.map(k=>D[k].name).join(", ");
+  output.innerHTML=`<div class="schedule-result"><span class="pill active-status">Plan generated · Simulated</span><h3 style="margin-top:10px">${focus}</h3><p><b>Date:</b> ${new Date(dateVal+"T12:00:00").toLocaleDateString()} · <b>Time needed:</b> ${duration} minutes · <b>Priority:</b> ${priority}</p><p><b>Data used:</b> ${usedNames}</p><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul><p><b>Privacy boundary:</b> No other data categories were accessed for this request. ${used.includes("calendar")?"Calendar access was within the permission shown above.":"No calendar data was accessed, so this plan does not claim to know your availability."}</p></div>`;
+  statusEl.textContent=`Plan generated using ${used.length} selected data source(s). ${used.length} simulated access record(s) were added to Data Usage.`;
+  render();
+}
+
+function render(){renderDashboard();renderPermissions();renderActivity();renderPrivacy();renderScheduling()}
 document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));renderPermissions()});
 document.getElementById("revoke-all").onclick=()=>{
   let count=0;
@@ -143,6 +238,14 @@ document.getElementById("delete-data").onclick=()=>{
 document.getElementById("usage-filter").onchange=renderActivity;
 document.getElementById("usage-result-filter").onchange=renderActivity;
 document.getElementById("clear-usage").onclick=()=>{accessLogs=[];document.getElementById("usage-status").textContent="Demo access history cleared.";renderActivity()};
+
+document.getElementById("generate-schedule").onclick=generateSchedule;
+document.getElementById("clear-schedule").onclick=()=>{
+  document.querySelectorAll(".schedule-source-choice").forEach(x=>x.checked=false);
+  document.getElementById("schedule-status").textContent="Selection cleared. No data was accessed.";
+  document.getElementById("schedule-output").innerHTML='<div class="empty">Your plan will appear here after you choose data sources and generate a schedule.</div>';
+  renderSchedulePreview();
+};
 document.getElementById("consent-accept").onclick=()=>{const understood=document.getElementById("consent-understood").checked;const selected=[...document.querySelectorAll(".consent-choice:checked")].map(x=>x.value);const msg=document.getElementById("consent-status");if(!understood){msg.textContent="Please confirm that you have read the explanation before continuing.";return}if(!selected.length){msg.textContent="No data categories selected. Choose at least one, or select Decline all.";return}selected.forEach(k=>{let p=state[k];p.status="Active";p.scope=D[k].default;p.purposes=[...D[k].purposes];p.duration="7";p.grantedAt=Date.now();p.expiresAt=Date.now()+7*day;addLog(D[k].name+" consent granted",`User selected ${D[k].name}. Scope: ${scopeName(k)}. Purpose: ${p.purposes.join(", ")}. Duration: 7 days.` ,"Consent")});msg.textContent="Your selected choices have been recorded in this prototype. You can review them in Permissions.";render();};
 document.getElementById("consent-decline").onclick=()=>{Object.keys(D).forEach(k=>{if(["Active","Paused"].includes(state[k].status)){state[k].status="Revoked";addLog(D[k].name+" consent withdrawn","All data access declined or withdrawn in this prototype.","Consent")}});document.querySelectorAll(".consent-choice").forEach(x=>x.checked=false);document.getElementById("consent-understood").checked=false;document.getElementById("consent-status").textContent="No data categories are authorised. You can return and make a different choice at any time.";render()};
 render();
